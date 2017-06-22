@@ -7,12 +7,13 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class DemoAController {
+public class DemoB {
     public static void main(String[] args) {
-        SpringApplication.run(DemoAController.class, args);
+        SpringApplication.run(DemoB.class, args);
     }
 }
 
@@ -21,9 +22,11 @@ class ServiceInstanceRestController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+    private RestTemplate restTemplate;
 
     @RequestMapping("/name")
     public String name(){
-        return "A";
+        String name = restTemplate.getForObject("http://demo-a/name", String.class);
+        return "A & " + name;
     }
 }
