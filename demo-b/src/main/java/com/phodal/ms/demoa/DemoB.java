@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -22,11 +24,20 @@ class ServiceInstanceRestController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @LoadBalanced
+    @Autowired
     private RestTemplate restTemplate;
 
     @RequestMapping("/name")
     public String name(){
         String name = restTemplate.getForObject("http://demo-a/name", String.class);
-        return "A & " + name;
+        return "B & " + name;
+    }
+
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
