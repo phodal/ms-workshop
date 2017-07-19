@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
+import java.util.Base64;
 
 @RestController
 @RefreshScope
@@ -31,7 +33,13 @@ class DemoAController {
 
     @RequestMapping("/name")
     public String name(){
-        RequestContext ctx = RequestContext.getCurrentContext();
-        return "A";
+        String authorization = httpRequest.getHeader("Authorization");
+
+        String base64Credentials = authorization.substring("Basic".length()).trim();
+        String credentials = new String(Base64.getDecoder().decode(base64Credentials), Charset.forName("UTF-8"));
+        String[] values = credentials.split(":", 2);
+        String username = values[0];
+
+        return username;
     }
 }
