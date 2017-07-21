@@ -1,4 +1,4 @@
-package com.phodal.msworkshop.hystrix;
+package com.phodal.ms.hystrix;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

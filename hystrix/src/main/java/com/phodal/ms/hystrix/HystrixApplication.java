@@ -1,8 +1,12 @@
-package com.phodal.msworkshop.hystrix;
+package com.phodal.ms.hystrix;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 
+@EnableHystrixDashboard
+@EnableHystrix
 @SpringBootApplication
 public class HystrixApplication {
 
