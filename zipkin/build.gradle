@@ -27,8 +27,11 @@ ext {
 }
 
 dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
 	compile('org.springframework.cloud:spring-cloud-sleuth-zipkin-stream')
+	compile('io.zipkin.java:zipkin-server')
 	runtime('io.zipkin.java:zipkin-autoconfigure-ui')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
